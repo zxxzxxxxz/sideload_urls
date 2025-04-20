@@ -1,4 +1,4 @@
-const releasesUrl = 'https://api.github.com/repos/LiveContainer/LiveContainer/releases';
+const releasesUrl = 'https://api.github.com/repos/BandarHL/BHTwitter/releases';
 
 type releasesJson = {
     'tag_name': string;

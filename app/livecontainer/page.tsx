@@ -57,7 +57,7 @@ export default async () => {
                             <td style={tdStyle}>
                                 {release.assets.map(asset => {
                                     return <p>
-                                        <a href={`livecontainer://install?url=${asset.browser_download_url}`}>{asset.name}</a>
+                                        <a href={`livecontainer://install?url=${asset.browser_download_url}`}>{`livecontainer://install?url=${asset.browser_download_url}`}</a>
                                     </p>;
                                 })}
                             </td>

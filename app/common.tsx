@@ -9,10 +9,10 @@ export const theadElement = <thead>
             <p>Date</p>
         </th>
         <th style={cellStyle}>
-            <p>Direct</p>
+            <p>DirectLink</p>
         </th>
         <th style={cellStyle}>
-            <p>LiveContainer</p>
+            <p>LiveContainerLink</p>
         </th>
     </tr>
 </thead>;

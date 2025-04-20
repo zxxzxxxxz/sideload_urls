@@ -57,7 +57,7 @@ export default async () => {
                 </tbody>
             </table>
         </details>
-        <details>
+        <details open={false}>
             <summary>old</summary>
             <table style={tableStyle}>
                 {theadElement}

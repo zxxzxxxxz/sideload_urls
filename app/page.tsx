@@ -2,7 +2,7 @@ import Image from "next/image";
 
 const links = new Map([
   ['BHTwitter', './bhtwitter'],
-  ['LiveContainer', './bhtwitter'],
+  ['LiveContainer', './livecontainer'],
   ['YTLitePlus', './ytliteplus']
 ]);
 

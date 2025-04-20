@@ -21,7 +21,7 @@ export default async () => {
     }).map(release => {
         return {
             ...release,
-            assets: release.assets.filter(asset => asset.name.endsWith('.ipa'))
+            assets: release.assets.filter(asset => asset.name.endsWith('.ipa') && !asset.name.includes('TrollStore'))
         };
     });
 

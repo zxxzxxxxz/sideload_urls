@@ -25,38 +25,71 @@ export default async () => {
         };
     });
 
-    return <table style={tableStyle}>
-        <thead>
-            <tr>
-                <th style={thStyle}>
-                    <p>tag_name</p>
-                </th>
-                <th style={thStyle}>
-                    <p>published_at</p>
-                </th>
-                <th style={thStyle}>
-                    <p>browser_download_url</p>
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            {releasesJsonFiltered.map(release => {
-                return <tr>
-                    <td style={tdStyle}>
-                        <p>{release.tag_name}</p>
-                    </td>
-                    <td style={tdStyle}>
-                        <p>{release.published_at}</p>
-                    </td>
-                    <td style={tdStyle}>
-                        {release.assets.map(asset => {
-                            return <p>
-                                <a href={`livecontainer://install?url=${asset.browser_download_url}`}>{asset.name}</a>
-                            </p>;
-                        })}
-                    </td>
-                </tr>;
-            })}
-        </tbody>
-    </table>;
+    const thead = <thead>
+        <tr>
+            <th style={thStyle}>
+                <p>version</p>
+            </th>
+            <th style={thStyle}>
+                <p>date</p>
+            </th>
+            <th style={thStyle}>
+                <p>url</p>
+            </th>
+        </tr>
+    </thead>;
+
+    return <>
+        <h1>LiveContainer</h1>
+        <details open={true}>
+            <summary>latest</summary>
+            <table style={tableStyle}>
+                {thead}
+                <tbody>
+                    {releasesJsonFiltered.filter((_, index) => index == 0).map(release => {
+                        return <tr>
+                            <td style={tdStyle}>
+                                <p>{release.tag_name}</p>
+                            </td>
+                            <td style={tdStyle}>
+                                <p>{release.published_at}</p>
+                            </td>
+                            <td style={tdStyle}>
+                                {release.assets.map(asset => {
+                                    return <p>
+                                        <a href={`livecontainer://install?url=${asset.browser_download_url}`}>{asset.name}</a>
+                                    </p>;
+                                })}
+                            </td>
+                        </tr>;
+                    })}
+                </tbody>
+            </table>
+        </details>
+        <details>
+            <summary>old</summary>
+            <table style={tableStyle}>
+                {thead}
+                <tbody>
+                    {releasesJsonFiltered.filter((_, index) => index != 0).map(release => {
+                        return <tr>
+                            <td style={tdStyle}>
+                                <p>{release.tag_name}</p>
+                            </td>
+                            <td style={tdStyle}>
+                                <p>{release.published_at}</p>
+                            </td>
+                            <td style={tdStyle}>
+                                {release.assets.map(asset => {
+                                    return <p>
+                                        <a href={`livecontainer://install?url=${asset.browser_download_url}`}>{asset.name}</a>
+                                    </p>;
+                                })}
+                            </td>
+                        </tr>;
+                    })}
+                </tbody>
+            </table>
+        </details>
+    </>;
 }

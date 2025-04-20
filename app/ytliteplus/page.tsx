@@ -22,36 +22,67 @@ export default async () => {
         return app.name == 'YTLitePlus';
     }).at(0)?.versions;
 
-    return <table style={tableStyle}>
-        <thead>
-            <tr>
-                <th style={thStyle}>
-                    <p>version</p>
-                </th>
-                <th style={thStyle}>
-                    <p>date</p>
-                </th>
-                <th style={thStyle}>
-                    <p>downloadURL</p>
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            {versionsJson?.map(versions => {
-                return <tr>
-                    <td style={tdStyle}>
-                        <p>{versions.version}</p>
-                    </td>
-                    <td style={tdStyle}>
-                        <p>{versions.date}</p>
-                    </td>
-                    <td style={tdStyle}>
-                        <p>
-                            <a href={`livecontainer://install?url=${versions.downloadURL}`}>{`livecontainer://install?url=${versions.downloadURL}`}</a>
-                        </p>
-                    </td>
-                </tr>;
-            })}
-        </tbody>
-    </table>;
+    const thead = <thead>
+        <tr>
+            <th style={thStyle}>
+                <p>version</p>
+            </th>
+            <th style={thStyle}>
+                <p>date</p>
+            </th>
+            <th style={thStyle}>
+                <p>url</p>
+            </th>
+        </tr>
+    </thead>;
+
+    return <>
+        <h1>YTLitePlus</h1>
+        <details open={true}>
+            <summary>latest</summary>
+            <table style={tableStyle}>
+                {thead}
+                <tbody>
+                    {versionsJson?.filter((_, index) => index == 0).map(versions => {
+                        return <tr>
+                            <td style={tdStyle}>
+                                <p>{versions.version}</p>
+                            </td>
+                            <td style={tdStyle}>
+                                <p>{versions.date}</p>
+                            </td>
+                            <td style={tdStyle}>
+                                <p>
+                                    <a href={`livecontainer://install?url=${versions.downloadURL}`}>{`livecontainer://install?url=${versions.downloadURL}`}</a>
+                                </p>
+                            </td>
+                        </tr>;
+                    })}
+                </tbody>
+            </table>
+        </details>
+        <details>
+            <summary>old</summary>
+            <table style={tableStyle}>
+                {thead}
+                <tbody>
+                    {versionsJson?.filter((_, index) => index != 0).map(versions => {
+                        return <tr>
+                            <td style={tdStyle}>
+                                <p>{versions.version}</p>
+                            </td>
+                            <td style={tdStyle}>
+                                <p>{versions.date}</p>
+                            </td>
+                            <td style={tdStyle}>
+                                <p>
+                                    <a href={`livecontainer://install?url=${versions.downloadURL}`}>{`livecontainer://install?url=${versions.downloadURL}`}</a>
+                                </p>
+                            </td>
+                        </tr>;
+                    })}
+                </tbody>
+            </table>
+        </details>
+    </>;
 }

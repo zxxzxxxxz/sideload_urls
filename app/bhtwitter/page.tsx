@@ -1,3 +1,5 @@
+import { theadElement, tableStyle, cellStyle } from '../common';
+
 const releasesUrl = 'https://api.github.com/repos/BandarHL/BHTwitter/releases';
 
 type releasesJson = {
@@ -8,10 +10,6 @@ type releasesJson = {
         'browser_download_url': string;
     }[];
 }[];
-
-const tableStyle = { margin: '4px' };
-const thStyle = { border: '1px solid', padding: '4px' };
-const tdStyle = { border: '1px solid', padding: '4px' };
 
 export default async () => {
     const response = await fetch(releasesUrl);
@@ -25,39 +23,32 @@ export default async () => {
         };
     });
 
-    const thead = <thead>
-        <tr>
-            <th style={thStyle}>
-                <p>version</p>
-            </th>
-            <th style={thStyle}>
-                <p>date</p>
-            </th>
-            <th style={thStyle}>
-                <p>url</p>
-            </th>
-        </tr>
-    </thead>;
-
     return <>
         <h1>BHTwitter</h1>
         <details open={true}>
             <summary>latest</summary>
             <table style={tableStyle}>
-                {thead}
+                {theadElement}
                 <tbody>
                     {releasesJsonFiltered.filter((_, index) => index == 0).map(release => {
                         return <tr>
-                            <td style={tdStyle}>
+                            <td style={cellStyle}>
                                 <p>{release.tag_name}</p>
                             </td>
-                            <td style={tdStyle}>
+                            <td style={cellStyle}>
                                 <p>{release.published_at}</p>
                             </td>
-                            <td style={tdStyle}>
+                            <td style={cellStyle}>
                                 {release.assets.map(asset => {
                                     return <p>
-                                        <a href={`livecontainer://install?url=${asset.browser_download_url}`}>{`livecontainer://install?url=${asset.browser_download_url}`}</a>
+                                        <a href={asset.browser_download_url}>{asset.browser_download_url}</a>
+                                    </p>;
+                                })}
+                            </td>
+                            <td style={cellStyle}>
+                                {release.assets.map(asset => {
+                                    return <p>
+                                        <a href={`livecontainer://install?url=${asset.browser_download_url}`}>{asset.browser_download_url}</a>
                                     </p>;
                                 })}
                             </td>
@@ -69,20 +60,27 @@ export default async () => {
         <details>
             <summary>old</summary>
             <table style={tableStyle}>
-                {thead}
+                {theadElement}
                 <tbody>
                     {releasesJsonFiltered.filter((_, index) => index != 0).map(release => {
                         return <tr>
-                            <td style={tdStyle}>
+                            <td style={cellStyle}>
                                 <p>{release.tag_name}</p>
                             </td>
-                            <td style={tdStyle}>
+                            <td style={cellStyle}>
                                 <p>{release.published_at}</p>
                             </td>
-                            <td style={tdStyle}>
+                            <td style={cellStyle}>
                                 {release.assets.map(asset => {
                                     return <p>
-                                        <a href={`livecontainer://install?url=${asset.browser_download_url}`}>{`livecontainer://install?url=${asset.browser_download_url}`}</a>
+                                        <a href={asset.browser_download_url}>{asset.browser_download_url}</a>
+                                    </p>;
+                                })}
+                            </td>
+                            <td style={cellStyle}>
+                                {release.assets.map(asset => {
+                                    return <p>
+                                        <a href={`livecontainer://install?url=${asset.browser_download_url}`}>{asset.browser_download_url}</a>
                                     </p>;
                                 })}
                             </td>

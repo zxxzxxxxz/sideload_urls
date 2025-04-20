@@ -1,3 +1,6 @@
+import { theadElement, tableStyle, cellStyle } from '../common';
+import { basename } from 'path';
+
 const altstoreRepoUrl = 'https://raw.githubusercontent.com/YTLitePlus/YTLitePlus-Altstore/main/apps.json';
 
 type repoJson = {
@@ -11,10 +14,6 @@ type repoJson = {
     }[]
 };
 
-const tableStyle = { margin: '4px' };
-const thStyle = { border: '1px solid', padding: '4px' };
-const tdStyle = { border: '1px solid', padding: '4px' };
-
 export default async () => {
     const response = await fetch(altstoreRepoUrl);
     const repoJson = await response.json() as repoJson;
@@ -22,38 +21,29 @@ export default async () => {
         return app.name == 'YTLitePlus';
     }).at(0)?.versions;
 
-    const thead = <thead>
-        <tr>
-            <th style={thStyle}>
-                <p>version</p>
-            </th>
-            <th style={thStyle}>
-                <p>date</p>
-            </th>
-            <th style={thStyle}>
-                <p>url</p>
-            </th>
-        </tr>
-    </thead>;
-
     return <>
         <h1>YTLitePlus</h1>
         <details open={true}>
             <summary>latest</summary>
             <table style={tableStyle}>
-                {thead}
+                {theadElement}
                 <tbody>
                     {versionsJson?.filter((_, index) => index == 0).map(versions => {
                         return <tr>
-                            <td style={tdStyle}>
+                            <td style={cellStyle}>
                                 <p>{versions.version}</p>
                             </td>
-                            <td style={tdStyle}>
+                            <td style={cellStyle}>
                                 <p>{versions.date}</p>
                             </td>
-                            <td style={tdStyle}>
+                            <td style={cellStyle}>
                                 <p>
-                                    <a href={`livecontainer://install?url=${versions.downloadURL}`}>{`livecontainer://install?url=${versions.downloadURL}`}</a>
+                                    <a href={versions.downloadURL}>{basename(versions.downloadURL)}</a>
+                                </p>
+                            </td>
+                            <td style={cellStyle}>
+                                <p>
+                                    <a href={`livecontainer://install?url=${versions.downloadURL}`}>{basename(versions.downloadURL)}</a>
                                 </p>
                             </td>
                         </tr>;
@@ -64,19 +54,24 @@ export default async () => {
         <details>
             <summary>old</summary>
             <table style={tableStyle}>
-                {thead}
+                {theadElement}
                 <tbody>
                     {versionsJson?.filter((_, index) => index != 0).map(versions => {
                         return <tr>
-                            <td style={tdStyle}>
+                            <td style={cellStyle}>
                                 <p>{versions.version}</p>
                             </td>
-                            <td style={tdStyle}>
+                            <td style={cellStyle}>
                                 <p>{versions.date}</p>
                             </td>
-                            <td style={tdStyle}>
+                            <td style={cellStyle}>
                                 <p>
-                                    <a href={`livecontainer://install?url=${versions.downloadURL}`}>{`livecontainer://install?url=${versions.downloadURL}`}</a>
+                                    <a href={versions.downloadURL}>{basename(versions.downloadURL)}</a>
+                                </p>
+                            </td>
+                            <td style={cellStyle}>
+                                <p>
+                                    <a href={`livecontainer://install?url=${versions.downloadURL}`}>{basename(versions.downloadURL)}</a>
                                 </p>
                             </td>
                         </tr>;

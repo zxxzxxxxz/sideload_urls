@@ -1,15 +1,13 @@
-import Image from "next/image";
-
 const links = new Map([
   ['BHTwitter', './bhtwitter'],
-  ['LiveContainer', './livecontainer'],
-  ['YTLitePlus', './ytliteplus']
+  ['YTLitePlus', './ytliteplus'],
+  ['LiveContainer AltStoreRepo', './livecontainer']
 ]);
 
 export default function Home() {
   return links.entries().map(([label, url]) => {
-    return <p>
+    return <h1>
       <a href={url}>{label}</a>
-    </p>
+    </h1>;
   })
 }

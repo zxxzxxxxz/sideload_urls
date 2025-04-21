@@ -7,8 +7,10 @@ type releasesJson = {
     'published_at': string;
     'assets': {
         'name': string;
+        'size': number;
         'browser_download_url': string;
     }[];
+    'body': string;
 }[];
 
 export async function GET() {
@@ -19,27 +21,28 @@ export async function GET() {
     }).map(release => {
         return {
             ...release,
-            assets: release.assets.filter(asset => asset.name.endsWith('.ipa')).at(0)!
+            asset: release.assets.filter(asset => asset.name.endsWith('.ipa')).at(0)!
         };
     });
 
     return NextResponse.json({
         name: 'LiveContainer',
-        developerName: 'LiveContainer',
         subtitle: '',
         description: '',
         iconURL: 'https://raw.githubusercontent.com/LiveContainer/LiveContainer/main/screenshots/livecontainer_icon.png',
-        website: 'https://github.com/LiveContainer/LiveContainer',
         apps: [
             {
                 name: 'LiveContainer',
                 bundleIdentifier: 'com.kdt.livecontainer',
+                developerName: 'LiveContainer',
+                localizedDescription: '',
                 iconURL: 'https://raw.githubusercontent.com/LiveContainer/LiveContainer/main/screenshots/livecontainer_icon.png',
                 versions: releasesJsonFiltered.map(release => {
                     return {
                         version: release.tag_name,
                         date: release.published_at,
-                        downloadURL: release.assets.browser_download_url
+                        downloadURL: release.asset.browser_download_url,
+                        size: release.asset.size
                     };
                 })
             }

@@ -24,17 +24,18 @@ export async function GET() {
     });
 
     return NextResponse.json({
-        'name': 'LiveContainer',
-        'subtitle': '',
-        'description': '',
-        'iconURL': 'https://raw.githubusercontent.com/LiveContainer/LiveContainer/main/screenshots/livecontainer_icon.png',
-        'website': 'https://github.com/LiveContainer/LiveContainer',
-        'apps': [
+        name: 'LiveContainer',
+        developerName: 'LiveContainer',
+        subtitle: '',
+        description: '',
+        iconURL: 'https://raw.githubusercontent.com/LiveContainer/LiveContainer/main/screenshots/livecontainer_icon.png',
+        website: 'https://github.com/LiveContainer/LiveContainer',
+        apps: [
             {
-                'name': 'LiveContainer',
-                'bundleIdentifier': 'com.kdt.livecontainer',
-                'iconURL': 'https://raw.githubusercontent.com/LiveContainer/LiveContainer/main/screenshots/livecontainer_icon.png',
-                'versions': releasesJsonFiltered.map(release => {
+                name: 'LiveContainer',
+                bundleIdentifier: 'com.kdt.livecontainer',
+                iconURL: 'https://raw.githubusercontent.com/LiveContainer/LiveContainer/main/screenshots/livecontainer_icon.png',
+                versions: releasesJsonFiltered.map(release => {
                     return {
                         version: release.tag_name,
                         date: release.published_at,

@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import removeMarkdown from 'markdown-to-text';
 
 export const tableStyle = { margin: '4px', width: 'calc(100% - (4px + 4px))' };
 export const cellStyle = { border: '1px solid', padding: '4px', width: 'calc(100% / 4)' };
@@ -61,8 +62,8 @@ export const githubResponseFunction = <T extends { githubUrl: string, descriptio
 
         const descriptionMarkdown = await (async () => {
             const response = await fetch(descriptionUrl);
-            const text = await response.text();
-            return text;
+            const markdown = await response.text();
+            return removeMarkdown(markdown);
         })();
 
         return NextResponse.json({

@@ -59,7 +59,7 @@ export async function getFromGithub({ githubUrl, iconUrl, bundleId, category, sc
         versions: githubReleasesJson.map(release => {
             return {
                 version: release.tag_name,
-                buildVersion: '',
+                buildVersion: release.tag_name,
                 date: release.published_at,
                 localizedDescription: release.body,
                 downloadURL: release.asset.browser_download_url,

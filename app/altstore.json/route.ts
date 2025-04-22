@@ -89,7 +89,8 @@ export async function GET() {
                 identifier: date.toString(),
                 caption: date.toString(),
                 date: date.toISOString(),
-                notify: true
+                notify: true,
+                tintColor: '#000000'
             }
         ]
     } as AltStoreRepoJsonType.Source);

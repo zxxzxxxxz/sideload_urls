@@ -6,7 +6,9 @@ const params = {
     iconUrl: 'https://raw.githubusercontent.com/LiveContainer/LiveContainer/main/screenshots/livecontainer_icon.png',
     bundleId: 'com.kdt.livecontainer',
     category: 'utilities',
-    screenshots: []
+    screenshots: [
+        'https://raw.githubusercontent.com/LiveContainer/LiveContainer/main/screenshots/livecontainer_icon.png'
+    ]
 } as Parameters<typeof githubResponseFunction>[0];
 
 export const GET = githubResponseFunction(params);

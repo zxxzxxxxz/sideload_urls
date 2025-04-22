@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { getFromGithub, type getFromGithubParamsType } from './get-from-github';
 import { getFromAltStoreRepo, type getFromAltStoreRepoParamsType } from './get-from-altstore-repo';
-import * as AltStoreRepoJson from './altstore-repo-json-type';
+import * as AltStoreRepoJsonType from './altstore-repo-json-type';
 
 const appParams = [
     {
@@ -11,7 +11,11 @@ const appParams = [
             iconUrl: 'https://raw.githubusercontent.com/LiveContainer/LiveContainer/main/screenshots/livecontainer_icon.png',
             bundleId: 'com.kdt.livecontainer',
             screenshots: [
-                'https://raw.githubusercontent.com/LiveContainer/LiveContainer/main/screenshots/livecontainer_icon.png'
+                {
+                    imageURL: 'https://raw.githubusercontent.com/LiveContainer/LiveContainer/main/screenshots/livecontainer_icon.png',
+                    width: 217,
+                    height: 217
+                }
             ]
         }
     },
@@ -68,7 +72,7 @@ export async function GET() {
             case 'altstore':
                 return await getFromAltStoreRepo(appParam.param);
         }
-    })) as AltStoreRepoJson.App[];
+    })) as AltStoreRepoJsonType.App[];
 
     return NextResponse.json({
         name: `zxxzxxxxz Source`,
@@ -87,6 +91,6 @@ export async function GET() {
                 date: date.toISOString(),
             }
         ]
-    } as AltStoreRepoJson.Source);
+    } as AltStoreRepoJsonType.Source);
 }
 export const POST = GET;

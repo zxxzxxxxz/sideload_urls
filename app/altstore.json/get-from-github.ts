@@ -25,7 +25,7 @@ export type getFromGithubParamsType = {
     iconUrl: string,
     bundleId: string,
     category?: string,
-    screenshots: string[]
+    screenshots: AltStoreRepoJson.Screenshot[]
 };
 
 export async function getFromGithub({ githubUrl, iconUrl, bundleId, category, screenshots }: getFromGithubParamsType): Promise<AltStoreRepoJson.App> {

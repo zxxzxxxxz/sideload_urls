@@ -19,9 +19,7 @@ export const theadElement = <thead>
     </tr>
 </thead>;
 
-
-
-export const githubResponseFunction = <T extends { githubUrl: string, iconUrl: string, bundleId: string, screenshots: string[] }>({ githubUrl, iconUrl, bundleId, screenshots }: T) => {
+export const githubResponseFunction = <T extends { githubUrl: string, descriptionUrl: string, iconUrl: string, bundleId: string, category: string, screenshots: string[] }>({ githubUrl, descriptionUrl, iconUrl, bundleId, category, screenshots }: T) => {
     return async () => {
         const githubJson = await (async () => {
             type githubJson = {
@@ -61,10 +59,16 @@ export const githubResponseFunction = <T extends { githubUrl: string, iconUrl: s
             });
         })();
 
+        const descriptionMarkdown = await (async () => {
+            const response = await fetch(descriptionUrl);
+            const text = await response.text();
+            return text;
+        })();
+
         return NextResponse.json({
             name: githubJson.name,
             subtitle: githubJson.description,
-            description: githubJson.description,
+            description: descriptionMarkdown,
             iconURL: iconUrl,
             website: githubJson.html_url,
             featuredApps: [ bundleId ],
@@ -75,6 +79,7 @@ export const githubResponseFunction = <T extends { githubUrl: string, iconUrl: s
                     developerName: githubJson.owner.login,
                     localizedDescription: githubJson.description,
                     iconURL: iconUrl,
+                    category: category,
                     screenshots: screenshots,
                     versions: githubReleasesJson.map(release => {
                         return {

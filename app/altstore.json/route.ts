@@ -42,6 +42,13 @@ const appParams = [
             repoUrl: 'https://ipa.cypwn.xyz/cypwn_unique.json',
             bundleId: 'com.atebits.Tweetie2'
         }
+    },
+    {
+        type: 'altstore',
+        param: {
+            repoUrl: 'https://ipa.cypwn.xyz/cypwn_unique.json',
+            bundleId: 'com.duolingo.DuolingoMobile'
+        }
     }
 ] as ({
     type: 'github',

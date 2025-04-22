@@ -30,8 +30,8 @@ export type App = {
     version?: string,
     versionDate?: string,
     downloadURL?: string,
-    size: number,
-    screenshotURLs: string[]
+    size?: number,
+    screenshotURLs?: string[]
 };
 
 export type Screenshot = (string | {

@@ -59,6 +59,8 @@ const appParams = [
 })[];
 
 export async function GET() {
+    const date = new Date();
+
     const apps = await Promise.all(appParams.map(async appParam => {
         switch (appParam.type) {
             case 'github':
@@ -69,9 +71,22 @@ export async function GET() {
     })) as AltStoreRepoJson.App[];
 
     return NextResponse.json({
-        name: `Zxxzxxxxz's Repo`,
+        name: `zxxzxxxxz Source`,
         iconURL: 'https://avatars.githubusercontent.com/u/16576653?v=4',
-        apps: apps
+        website: 'https://sideloadurls.vercel.app',
+        featuredApps: [
+            'com.kdt.livecontainer',
+            'com.stik.sj'
+        ],
+        apps: apps,
+        news: [
+            {
+                title: date.toString(),
+                identifier: date.toString(),
+                caption: date.toString(),
+                date: date.toISOString(),
+            }
+        ]
     } as AltStoreRepoJson.Source);
 }
 export const POST = GET;

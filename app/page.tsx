@@ -1,16 +1,12 @@
-"use server";
 import * as AltStoreRepoJsonType from './altstore.json/altstore-repo-json-type';
-import { headers } from 'next/headers';
+import { GET } from './altstore.json/route';
 
 export default async function Home() {
-  const headersList = await headers();
-  const hostname = headersList.get('x-forwarded-host');
-
-  const request = await fetch(`http://${hostname}/altstore.json`);
-  const json = await request.json() as AltStoreRepoJsonType.Source;
-
+  const response = await GET();
+  const json = await response.json() as AltStoreRepoJsonType.Source;
+  
   return <>
-    <table>
+    <table style={{ margin: '4px' }}>
       <tbody>
         {json.apps.map(app => {
           return {

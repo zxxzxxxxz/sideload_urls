@@ -36,7 +36,7 @@ export type Screenshot = (string | {
 
 export type AppVersion = {
     version: string,
-    buildVersion: string,
+    buildVersion?: string,
     marketingVersion?: string;
     date: string,
     localizedDescription?: string,

@@ -85,11 +85,10 @@ export async function GET() {
         apps: apps,
         news: [
             {
-                title: date.toString(),
-                identifier: date.toString(),
-                caption: date.toString(),
+                title: date.toISOString(),
+                identifier: date.toISOString(),
+                caption: '',
                 date: date.toISOString(),
-                notify: true,
                 tintColor: '#000000'
             }
         ]

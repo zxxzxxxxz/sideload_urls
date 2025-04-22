@@ -24,9 +24,14 @@ export type App = {
     tintColor?: string,
     category?: string,
     screenshots?: Screenshot[],
-    versions: AppVersion[],
+    versions?: AppVersion[],
     appPermissions: AppPermission,
-    patreon?: Patreon
+    patreon?: Patreon,
+    version?: string,
+    versionDate?: string,
+    downloadURL?: string,
+    size: number,
+    screenshotURLs: string[]
 };
 
 export type Screenshot = (string | {

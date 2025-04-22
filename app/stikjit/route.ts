@@ -1,15 +1,15 @@
 import { NextResponse } from "next/server";
 
-const releasesUrl = 'https://github.com/StephenDev0/StikJIT/releases';
+const releasesUrl = 'https://api.github.com/repos/StephenDev0/StikJIT/releases';
 
 type releasesJson = {
-    'tag_name': string;
-    'published_at': string;
+    'tag_name': string,
+    'published_at': string,
     'assets': {
-        'name': string;
-        'size': number;
-        'browser_download_url': string;
-    }[];
+        'name': string,
+        'size': number,
+        'browser_download_url': string
+    }[],
     'body': string;
 }[];
 

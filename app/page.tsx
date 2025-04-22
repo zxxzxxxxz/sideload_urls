@@ -1,13 +1,11 @@
-const links = new Map([
-  ['BHTwitter', './bhtwitter'],
-  ['YTLitePlus', './ytliteplus'],
-  ['LiveContainer AltStoreRepo', './livecontainer']
-]);
-
 export default function Home() {
-  return links.entries().map(([label, url]) => {
-    return <h1>
-      <a href={url}>{label}</a>
-    </h1>;
-  })
+  return <>
+    <h1>LiveContainer Repo</h1>
+    <a href="./bhtwitter">BHTwitter</a>
+    <a href="./ytliteplus">YTLitePlus</a>
+
+    <h1>AltStore Repo</h1>
+    <a href="./livecontainer">LiveContainer</a>
+    <a href="./stikjit">StikJIT</a>
+  </>;
 }

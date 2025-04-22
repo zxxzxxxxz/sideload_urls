@@ -1,3 +1,5 @@
+import { NextResponse } from "next/server";
+
 export const tableStyle = { margin: '4px', width: 'calc(100% - (4px + 4px))' };
 export const cellStyle = { border: '1px solid', padding: '4px', width: 'calc(100% / 4)' };
 export const theadElement = <thead>
@@ -16,3 +18,71 @@ export const theadElement = <thead>
         </th>
     </tr>
 </thead>;
+
+export const githubResponseFunction = (githubUrl: string, iconUrl: string, bundleId: string) => {
+    return async () => {
+        const githubJson = await (async () => {
+            type githubJson = {
+                name: string,
+                owner: {
+                    login: string
+                },
+                html_url: string,
+                description: string
+            };
+
+            const response = await fetch(githubUrl);
+            return await response.json() as githubJson;
+        })();
+
+        const githubReleasesJson = await (async () => {
+            type githubReleasesJson = {
+                tag_name: string,
+                published_at: string,
+                assets: {
+                    name: string,
+                    size: number,
+                    browser_download_url: string
+                }[],
+                body: string
+            }[];
+
+            const response = await fetch(githubUrl + '/releases');
+            const json = await response.json() as githubReleasesJson;
+            return json.filter(release => {
+                return release.assets.some(asset => asset.browser_download_url.endsWith('.ipa'));
+            }).map(release => {
+                return {
+                    ...release,
+                    asset: release.assets.filter(asset => asset.name.endsWith('.ipa')).at(0)!
+                };
+            });
+        })();
+
+        return NextResponse.json({
+            name: githubJson.name,
+            subtitle: githubJson.description,
+            description: githubJson.description,
+            iconURL: iconUrl,
+            apps: [
+                {
+                    name: githubJson.name,
+                    bundleIdentifier: bundleId,
+                    developerName: githubJson.owner.login,
+                    localizedDescription: githubJson.description,
+                    iconURL: iconUrl,
+                    website: githubJson.html_url,
+                    versions: githubReleasesJson.map(release => {
+                        return {
+                            version: release.tag_name,
+                            date: release.published_at,
+                            localizedDescription: release.body,
+                            downloadURL: release.asset.browser_download_url,
+                            size: release.asset.size
+                        };
+                    })
+                }
+            ]
+        });
+    }
+}

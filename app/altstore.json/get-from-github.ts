@@ -50,7 +50,7 @@ export async function getFromGithub({ githubUrl, iconUrl, bundleId, category, sc
     return {
         name: githubJson.name,
         bundleIdentifier: bundleId,
-        marketplaceID: '',
+        // marketplaceID: '',
         developerName: githubJson.owner.login,
         localizedDescription: githubJson.description,
         iconURL: iconUrl,
@@ -59,6 +59,7 @@ export async function getFromGithub({ githubUrl, iconUrl, bundleId, category, sc
         versions: githubReleasesJson.map(release => {
             return {
                 version: release.tag_name,
+                // buildVersion: '',
                 date: release.published_at,
                 localizedDescription: release.body,
                 downloadURL: release.asset.browser_download_url,

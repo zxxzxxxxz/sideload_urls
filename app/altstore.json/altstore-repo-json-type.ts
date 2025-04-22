@@ -15,7 +15,8 @@ export type Source = {
 export type App = {
     name: string,
     bundleIdentifier: string,
-    marketplaceID: string,
+    // marketplaceID: string,
+    marketplaceID?: string,  // notarized
     developerName: string,
     subtitle?: string,
     localizedDescription: string,
@@ -36,7 +37,8 @@ export type Screenshot = (string | {
 
 export type AppVersion = {
     version: string,
-    buildVersion?: string,
+    // buildVersion: string,
+    buildVersion?: string,  // notarized
     marketingVersion?: string;
     date: string,
     localizedDescription?: string,
